@@ -17,7 +17,6 @@ class Kiosk {
       f.loadCatalog(this.catalog);
       transactionCounter = f.loadTransactions(this.catalog.getHistory());
       this.linkTransactions();
-        System.out.println(transactionCounter);
         
     }
     void save() throws IOException

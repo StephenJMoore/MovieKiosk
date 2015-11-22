@@ -205,8 +205,7 @@ import java.util.ArrayList;
                         }
    
                         break;
-                    default:
-                        System.out.println("EOF");
+                   
                     }
       
            }
