@@ -32,5 +32,4 @@ public class MovieKiosk {
     k.menu(user);
     k.save();
     }
-    
 }
