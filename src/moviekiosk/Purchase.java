@@ -21,10 +21,12 @@ public class Purchase extends Transaction {
         super(list, a, counter);
     } 
     @Override
-   void display()
+   StringBuilder display()
    {
-       System.out.println("Purchased Movies:");
-       super.display();
+       StringBuilder sb = new StringBuilder();
+       sb.append("Purchased Movies:");
+       sb.append(super.display());
+       return sb;
    }
 
 }

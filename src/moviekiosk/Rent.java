@@ -20,9 +20,12 @@ class Rent extends Transaction {
         super(list, a, counter);
     } 
     @Override
-   void display()
+   StringBuilder display()
    {
-       System.out.println("Movies Rented:");
+       StringBuilder sb = new StringBuilder();
+       sb.append("Movies Rented:");
        super.display();
+       sb.append(super.display());
+       return sb;
    }
 }

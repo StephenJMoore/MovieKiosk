@@ -27,10 +27,12 @@ public class Reserve extends Transaction {
     }
     
     @Override
-   void display()
+   StringBuilder display()
    {
-       System.out.println("Reserved Movies:");
-       super.display();
+       StringBuilder sb = new StringBuilder();
+       sb.append("Reserved Movies:");
+       sb.append(super.display());
+       return sb;
    }
 
 }

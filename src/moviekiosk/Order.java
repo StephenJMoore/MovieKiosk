@@ -21,10 +21,12 @@ public class Order extends Transaction {
         super(list, a, counter);
     } 
    @Override
-   void display()
+   StringBuilder display()
    {
-       System.out.println("Ordered Movies: ");
-       super.display();
+       StringBuilder sb = new StringBuilder();
+       sb.append("Ordered Movies: " + "\n");
+       sb.append(super.display());
+       return sb;
    }
 
 }

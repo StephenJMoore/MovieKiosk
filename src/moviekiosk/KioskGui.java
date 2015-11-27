@@ -5,6 +5,12 @@
  */
 package moviekiosk;
 
+import java.awt.CardLayout;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Stephen Moore
@@ -14,7 +20,10 @@ public class KioskGui extends javax.swing.JFrame {
     /**
      * Creates new form GuiKiosk
      */
-    public KioskGui() {
+    Kiosk k = new Kiosk();
+    Account user;
+    public KioskGui() throws IOException {
+        k.load();
         initComponents();
     }
 
@@ -28,70 +37,35 @@ public class KioskGui extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel4 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
         Login = new javax.swing.JPanel();
         EmailField = new javax.swing.JTextField();
         EmailLabel = new javax.swing.JLabel();
         LoginButton = new javax.swing.JButton();
         Menu = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        RentButton = new javax.swing.JButton();
         HistoryView = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jScrollHistory = new javax.swing.JScrollPane();
+        HistoryText = new javax.swing.JTextArea(k.printHistory(user));
         jButton2 = new javax.swing.JButton();
         Inventory = new javax.swing.JPanel();
         TitleLabel = new javax.swing.JLabel();
         WelcomeLabel = new javax.swing.JLabel();
         TitleField = new javax.swing.JTextField();
         CheckStock = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-
-        jPanel4.setName("Go"); // NOI18N
-
-        jButton3.setText("Go");
-        jButton3.setMaximumSize(null);
-
-        jTextField2.setName("EmailField"); // NOI18N
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setText("Enter Email:");
-        jLabel2.setName("EmailLabel"); // NOI18N
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(40, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(34, 34, 34)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(93, 93, 93)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(55, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(18, 18, 18)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43))
-        );
+        Transaction = new javax.swing.JPanel();
+        MovieLabel = new javax.swing.JLabel();
+        MovieField = new javax.swing.JTextField();
+        addMovie = new javax.swing.JButton();
+        CartList = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
+        Transact = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Movie Kiosk");
         getContentPane().setLayout(new java.awt.CardLayout());
+
+        jPanel4.setName("Go"); // NOI18N
+        jPanel4.setLayout(new java.awt.CardLayout());
 
         EmailField.setName("EmailField"); // NOI18N
         EmailField.addActionListener(new java.awt.event.ActionListener() {
@@ -105,6 +79,11 @@ public class KioskGui extends javax.swing.JFrame {
 
         LoginButton.setText("Go");
         LoginButton.setMaximumSize(null);
+        LoginButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LoginButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout LoginLayout = new javax.swing.GroupLayout(Login);
         Login.setLayout(LoginLayout);
@@ -135,38 +114,45 @@ public class KioskGui extends javax.swing.JFrame {
                 .addContainerGap(191, Short.MAX_VALUE))
         );
 
-        getContentPane().add(Login, "card2");
+        jPanel4.add(Login, "card2");
 
-        jButton1.setText("jButton1");
+        RentButton.setText("Rent");
+        RentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RentButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout MenuLayout = new javax.swing.GroupLayout(Menu);
         Menu.setLayout(MenuLayout);
         MenuLayout.setHorizontalGroup(
             MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 485, Short.MAX_VALUE)
-            .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(MenuLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jButton1)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(MenuLayout.createSequentialGroup()
+                .addGap(109, 109, 109)
+                .addComponent(RentButton)
+                .addContainerGap(321, Short.MAX_VALUE))
         );
         MenuLayout.setVerticalGroup(
             MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 324, Short.MAX_VALUE)
-            .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(MenuLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jButton1)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(MenuLayout.createSequentialGroup()
+                .addGap(143, 143, 143)
+                .addComponent(RentButton)
+                .addContainerGap(158, Short.MAX_VALUE))
         );
 
-        getContentPane().add(Menu, "card3");
+        jPanel4.add(Menu, "card3");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        HistoryText.setEditable(false);
+        HistoryText.setColumns(20);
+        HistoryText.setRows(5);
+        jScrollHistory.setViewportView(HistoryText);
 
         jButton2.setText("Return");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout HistoryViewLayout = new javax.swing.GroupLayout(HistoryView);
         HistoryView.setLayout(HistoryViewLayout);
@@ -174,7 +160,7 @@ public class KioskGui extends javax.swing.JFrame {
             HistoryViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HistoryViewLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollHistory)
                 .addContainerGap())
             .addGroup(HistoryViewLayout.createSequentialGroup()
                 .addGap(161, 161, 161)
@@ -185,13 +171,13 @@ public class KioskGui extends javax.swing.JFrame {
             HistoryViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HistoryViewLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollHistory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(63, 63, 63)
                 .addComponent(jButton2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(HistoryView, "card4");
+        jPanel4.add(HistoryView, "card4");
 
         TitleLabel.setText("Title:");
 
@@ -231,31 +217,92 @@ public class KioskGui extends javax.swing.JFrame {
                 .addContainerGap(147, Short.MAX_VALUE))
         );
 
-        getContentPane().add(Inventory, "card5");
+        jPanel4.add(Inventory, "card5");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 485, Short.MAX_VALUE)
+        MovieLabel.setText("Movie Title:");
+
+        MovieField.setText("jTextField1");
+
+        addMovie.setText("Add");
+
+        jTextArea2.setColumns(20);
+        jTextArea2.setRows(5);
+        CartList.setViewportView(jTextArea2);
+
+        Transact.setText("jButton1");
+
+        javax.swing.GroupLayout TransactionLayout = new javax.swing.GroupLayout(Transaction);
+        Transaction.setLayout(TransactionLayout);
+        TransactionLayout.setHorizontalGroup(
+            TransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TransactionLayout.createSequentialGroup()
+                .addGroup(TransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(TransactionLayout.createSequentialGroup()
+                        .addGap(93, 93, 93)
+                        .addComponent(MovieLabel)
+                        .addGap(50, 50, 50)
+                        .addComponent(MovieField, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(TransactionLayout.createSequentialGroup()
+                        .addGap(157, 157, 157)
+                        .addComponent(addMovie))
+                    .addGroup(TransactionLayout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(CartList, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(TransactionLayout.createSequentialGroup()
+                        .addGap(165, 165, 165)
+                        .addComponent(Transact)))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 324, Short.MAX_VALUE)
+        TransactionLayout.setVerticalGroup(
+            TransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TransactionLayout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addGroup(TransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(MovieLabel)
+                    .addComponent(MovieField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(addMovie)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(CartList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(Transact)
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, "card6");
+        jPanel4.add(Transaction, "card6");
+
+        getContentPane().add(jPanel4, "card7");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
+
+        user = k.login(EmailField.getText());
+        if(user.getID()==-1)
+        {
+            JOptionPane.showMessageDialog(null, "Email Not Found. Please try again.", "Email not found", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+          CardLayout c1;
+          c1 = (CardLayout)(jPanel4.getLayout());
+          c1.next(jPanel4);
+        }
+    }//GEN-LAST:event_LoginButtonActionPerformed
 
     private void EmailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_EmailFieldActionPerformed
+
+    private void RentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RentButtonActionPerformed
+       RentButton.getName();
+    }//GEN-LAST:event_RentButtonActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        CardLayout c2 = (CardLayout)(jPanel4.getLayout());
+        c2.show(jPanel4, "Menu");
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -288,32 +335,38 @@ public class KioskGui extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new KioskGui().setVisible(true);
+                try {
+                    new KioskGui().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(KioskGui.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane CartList;
     private javax.swing.JButton CheckStock;
     private javax.swing.JTextField EmailField;
     private javax.swing.JLabel EmailLabel;
+    private javax.swing.JTextArea HistoryText;
     private javax.swing.JPanel HistoryView;
     private javax.swing.JPanel Inventory;
     private javax.swing.JPanel Login;
     private javax.swing.JButton LoginButton;
     private javax.swing.JPanel Menu;
+    private javax.swing.JTextField MovieField;
+    private javax.swing.JLabel MovieLabel;
+    private javax.swing.JButton RentButton;
     private javax.swing.JTextField TitleField;
     private javax.swing.JLabel TitleLabel;
+    private javax.swing.JButton Transact;
+    private javax.swing.JPanel Transaction;
     private javax.swing.JLabel WelcomeLabel;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton addMovie;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JScrollPane jScrollHistory;
+    private javax.swing.JTextArea jTextArea2;
     // End of variables declaration//GEN-END:variables
 }

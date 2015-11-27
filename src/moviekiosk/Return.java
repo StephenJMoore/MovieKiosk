@@ -21,9 +21,11 @@ class Return extends Transaction {
         super(list, a, counter);
     } 
     @Override
-   void display()
+   StringBuilder display()
    {
-       System.out.println("Movies Returned");
-       super.display();
+       StringBuilder sb = new StringBuilder();
+       sb.append("Movies Returned");
+       sb.append(super.display());
+       return sb;
    }
 }

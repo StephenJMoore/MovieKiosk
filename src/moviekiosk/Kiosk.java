@@ -141,9 +141,18 @@ class Kiosk {
     {
         for(Transaction t: a.transactions)
         {
-            t.display();
+            System.out.println(t.display());
         }
     }
+    String printHistory(Account a)
+    {
+        StringBuilder sb = new StringBuilder();
+        for(Transaction t: a.transactions)
+            sb.append(t.display());
+        String s = new String(sb);
+        return s;
+    }
+    
    Account find(String search)
 {
 
