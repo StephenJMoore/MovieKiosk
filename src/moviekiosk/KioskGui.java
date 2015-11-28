@@ -7,6 +7,7 @@ package moviekiosk;
 
 import java.awt.CardLayout;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -21,10 +22,12 @@ public class KioskGui extends javax.swing.JFrame {
      * Creates new form GuiKiosk
      */
     Kiosk k = new Kiosk();
-    Account user;
+    ArrayList<Media> mediaCart = new ArrayList<>();
+    Account user = new Account();
     public KioskGui() throws IOException {
         k.load();
         initComponents();
+        
     }
 
     /**
@@ -37,28 +40,32 @@ public class KioskGui extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel4 = new javax.swing.JPanel();
-        Login = new javax.swing.JPanel();
-        EmailField = new javax.swing.JTextField();
-        EmailLabel = new javax.swing.JLabel();
-        LoginButton = new javax.swing.JButton();
-        Menu = new javax.swing.JPanel();
-        RentButton = new javax.swing.JButton();
+        login = new javax.swing.JPanel();
+        emailField = new javax.swing.JTextField();
+        emailLabel = new javax.swing.JLabel();
+        loginButton = new javax.swing.JButton();
+        menu = new javax.swing.JPanel();
+        rentButton = new javax.swing.JButton();
+        returnButton = new javax.swing.JButton();
+        reserveButton = new javax.swing.JButton();
+        purchaseButton = new javax.swing.JButton();
+        orderButton = new javax.swing.JButton();
+        transaction = new javax.swing.JPanel();
+        movieLabel = new javax.swing.JLabel();
+        movieField = new javax.swing.JTextField();
+        addMovie = new javax.swing.JButton();
+        cartList = new javax.swing.JScrollPane();
+        titlesText = new javax.swing.JTextArea();
+        doTransaction = new javax.swing.JButton();
         HistoryView = new javax.swing.JPanel();
         jScrollHistory = new javax.swing.JScrollPane();
         HistoryText = new javax.swing.JTextArea(k.printHistory(user));
-        jButton2 = new javax.swing.JButton();
-        Inventory = new javax.swing.JPanel();
-        TitleLabel = new javax.swing.JLabel();
-        WelcomeLabel = new javax.swing.JLabel();
-        TitleField = new javax.swing.JTextField();
-        CheckStock = new javax.swing.JButton();
-        Transaction = new javax.swing.JPanel();
-        MovieLabel = new javax.swing.JLabel();
-        MovieField = new javax.swing.JTextField();
-        addMovie = new javax.swing.JButton();
-        CartList = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
-        Transact = new javax.swing.JButton();
+        returnMenu = new javax.swing.JButton();
+        inventory = new javax.swing.JPanel();
+        titleLabel = new javax.swing.JLabel();
+        welcomeLabel = new javax.swing.JLabel();
+        titleField = new javax.swing.JTextField();
+        checkStock = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Movie Kiosk");
@@ -67,90 +74,205 @@ public class KioskGui extends javax.swing.JFrame {
         jPanel4.setName("Go"); // NOI18N
         jPanel4.setLayout(new java.awt.CardLayout());
 
-        EmailField.setName("EmailField"); // NOI18N
-        EmailField.addActionListener(new java.awt.event.ActionListener() {
+        emailField.setName("emailField"); // NOI18N
+        emailField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EmailFieldActionPerformed(evt);
+                emailFieldActionPerformed(evt);
             }
         });
 
-        EmailLabel.setText("Enter Email:");
-        EmailLabel.setName("EmailLabel"); // NOI18N
+        emailLabel.setText("Enter Email:");
+        emailLabel.setName("emailLabel"); // NOI18N
 
-        LoginButton.setText("Go");
-        LoginButton.setMaximumSize(null);
-        LoginButton.addActionListener(new java.awt.event.ActionListener() {
+        loginButton.setText("Go");
+        loginButton.setMaximumSize(null);
+        loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LoginButtonActionPerformed(evt);
+                loginButtonActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout LoginLayout = new javax.swing.GroupLayout(Login);
-        Login.setLayout(LoginLayout);
-        LoginLayout.setHorizontalGroup(
-            LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LoginLayout.createSequentialGroup()
+        javax.swing.GroupLayout loginLayout = new javax.swing.GroupLayout(login);
+        login.setLayout(loginLayout);
+        loginLayout.setHorizontalGroup(
+            loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(loginLayout.createSequentialGroup()
                 .addGap(66, 66, 66)
-                .addGroup(LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginLayout.createSequentialGroup()
-                        .addComponent(EmailLabel)
+                .addGroup(loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginLayout.createSequentialGroup()
+                        .addComponent(emailLabel)
                         .addGap(34, 34, 34)
-                        .addComponent(EmailField, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(LoginLayout.createSequentialGroup()
+                        .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(loginLayout.createSequentialGroup()
                         .addGap(53, 53, 53)
-                        .addComponent(LoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(230, Short.MAX_VALUE))
         );
-        LoginLayout.setVerticalGroup(
-            LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LoginLayout.createSequentialGroup()
+        loginLayout.setVerticalGroup(
+            loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(loginLayout.createSequentialGroup()
                 .addGap(72, 72, 72)
-                .addGroup(LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(EmailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(EmailLabel))
+                .addGroup(loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(emailLabel))
                 .addGap(18, 18, 18)
-                .addComponent(LoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(191, Short.MAX_VALUE))
         );
 
-        jPanel4.add(Login, "card2");
+        jPanel4.add(login, "card2");
 
-        RentButton.setText("Rent");
-        RentButton.addActionListener(new java.awt.event.ActionListener() {
+        menu.setName("menu"); // NOI18N
+
+        rentButton.setText("Rent");
+        rentButton.setName("Rent"); // NOI18N
+        rentButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RentButtonActionPerformed(evt);
+                rentButtonActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout MenuLayout = new javax.swing.GroupLayout(Menu);
-        Menu.setLayout(MenuLayout);
-        MenuLayout.setHorizontalGroup(
-            MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MenuLayout.createSequentialGroup()
+        returnButton.setText("Return");
+        returnButton.setName("Return"); // NOI18N
+        returnButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                returnButtonActionPerformed(evt);
+            }
+        });
+
+        reserveButton.setText("Reserve");
+        reserveButton.setName("Reserve"); // NOI18N
+        reserveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reserveButtonActionPerformed(evt);
+            }
+        });
+
+        purchaseButton.setText("Purchase");
+        purchaseButton.setName("Purchase"); // NOI18N
+        purchaseButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                purchaseButtonActionPerformed(evt);
+            }
+        });
+
+        orderButton.setText("Order");
+        orderButton.setName("Order"); // NOI18N
+        orderButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                orderButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout menuLayout = new javax.swing.GroupLayout(menu);
+        menu.setLayout(menuLayout);
+        menuLayout.setHorizontalGroup(
+            menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(menuLayout.createSequentialGroup()
                 .addGap(109, 109, 109)
-                .addComponent(RentButton)
-                .addContainerGap(321, Short.MAX_VALUE))
+                .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(returnButton)
+                    .addGroup(menuLayout.createSequentialGroup()
+                        .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(reserveButton)
+                            .addComponent(rentButton))
+                        .addGap(66, 66, 66)
+                        .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(purchaseButton)
+                            .addComponent(orderButton))))
+                .addContainerGap(160, Short.MAX_VALUE))
         );
-        MenuLayout.setVerticalGroup(
-            MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MenuLayout.createSequentialGroup()
+        menuLayout.setVerticalGroup(
+            menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(menuLayout.createSequentialGroup()
                 .addGap(143, 143, 143)
-                .addComponent(RentButton)
-                .addContainerGap(158, Short.MAX_VALUE))
+                .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(menuLayout.createSequentialGroup()
+                        .addComponent(rentButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(reserveButton))
+                    .addGroup(menuLayout.createSequentialGroup()
+                        .addComponent(orderButton)
+                        .addGap(16, 16, 16)
+                        .addComponent(purchaseButton)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(returnButton)
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
-        jPanel4.add(Menu, "card3");
+        jPanel4.add(menu, "card3");
+
+        movieLabel.setText("Movie Title:");
+
+        addMovie.setText("Add");
+        addMovie.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addMovieActionPerformed(evt);
+            }
+        });
+
+        titlesText.setEditable(false);
+        titlesText.setColumns(20);
+        titlesText.setRows(5);
+        cartList.setViewportView(titlesText);
+
+        doTransaction.setText("Go");
+        doTransaction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                doTransactionActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout transactionLayout = new javax.swing.GroupLayout(transaction);
+        transaction.setLayout(transactionLayout);
+        transactionLayout.setHorizontalGroup(
+            transactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(transactionLayout.createSequentialGroup()
+                .addGroup(transactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(transactionLayout.createSequentialGroup()
+                        .addGap(93, 93, 93)
+                        .addComponent(movieLabel)
+                        .addGap(50, 50, 50)
+                        .addComponent(movieField, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(transactionLayout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(cartList, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(transactionLayout.createSequentialGroup()
+                        .addGap(168, 168, 168)
+                        .addComponent(addMovie))
+                    .addGroup(transactionLayout.createSequentialGroup()
+                        .addGap(178, 178, 178)
+                        .addComponent(doTransaction)))
+                .addContainerGap(81, Short.MAX_VALUE))
+        );
+        transactionLayout.setVerticalGroup(
+            transactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(transactionLayout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addGroup(transactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(movieLabel)
+                    .addComponent(movieField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addMovie)
+                .addGap(23, 23, 23)
+                .addComponent(cartList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(doTransaction)
+                .addContainerGap(48, Short.MAX_VALUE))
+        );
+
+        jPanel4.add(transaction, "card6");
 
         HistoryText.setEditable(false);
         HistoryText.setColumns(20);
         HistoryText.setRows(5);
         jScrollHistory.setViewportView(HistoryText);
 
-        jButton2.setText("Return");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        returnMenu.setText("Return");
+        returnMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                returnMenuActionPerformed(evt);
             }
         });
 
@@ -164,7 +286,7 @@ public class KioskGui extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(HistoryViewLayout.createSequentialGroup()
                 .addGap(161, 161, 161)
-                .addComponent(jButton2)
+                .addComponent(returnMenu)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         HistoryViewLayout.setVerticalGroup(
@@ -173,112 +295,60 @@ public class KioskGui extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addComponent(jScrollHistory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(63, 63, 63)
-                .addComponent(jButton2)
+                .addComponent(returnMenu)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.add(HistoryView, "card4");
 
-        TitleLabel.setText("Title:");
+        titleLabel.setText("Title:");
 
-        WelcomeLabel.setText("Check Inventory ");
+        welcomeLabel.setText("Check Inventory ");
 
-        CheckStock.setText("Check Stock");
+        checkStock.setText("Check Stock");
 
-        javax.swing.GroupLayout InventoryLayout = new javax.swing.GroupLayout(Inventory);
-        Inventory.setLayout(InventoryLayout);
-        InventoryLayout.setHorizontalGroup(
-            InventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(InventoryLayout.createSequentialGroup()
-                .addGroup(InventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(InventoryLayout.createSequentialGroup()
+        javax.swing.GroupLayout inventoryLayout = new javax.swing.GroupLayout(inventory);
+        inventory.setLayout(inventoryLayout);
+        inventoryLayout.setHorizontalGroup(
+            inventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(inventoryLayout.createSequentialGroup()
+                .addGroup(inventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(inventoryLayout.createSequentialGroup()
                         .addGap(101, 101, 101)
-                        .addComponent(TitleLabel)
+                        .addComponent(titleLabel)
                         .addGap(59, 59, 59)
-                        .addComponent(TitleField, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(InventoryLayout.createSequentialGroup()
+                        .addComponent(titleField, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(inventoryLayout.createSequentialGroup()
                         .addGap(163, 163, 163)
-                        .addGroup(InventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(CheckStock)
-                            .addComponent(WelcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(inventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(checkStock)
+                            .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(190, Short.MAX_VALUE))
         );
-        InventoryLayout.setVerticalGroup(
-            InventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(InventoryLayout.createSequentialGroup()
+        inventoryLayout.setVerticalGroup(
+            inventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(inventoryLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(WelcomeLabel)
+                .addComponent(welcomeLabel)
                 .addGap(71, 71, 71)
-                .addGroup(InventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TitleLabel)
-                    .addComponent(TitleField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(inventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(titleLabel)
+                    .addComponent(titleField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
-                .addComponent(CheckStock)
+                .addComponent(checkStock)
                 .addContainerGap(147, Short.MAX_VALUE))
         );
 
-        jPanel4.add(Inventory, "card5");
-
-        MovieLabel.setText("Movie Title:");
-
-        MovieField.setText("jTextField1");
-
-        addMovie.setText("Add");
-
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        CartList.setViewportView(jTextArea2);
-
-        Transact.setText("jButton1");
-
-        javax.swing.GroupLayout TransactionLayout = new javax.swing.GroupLayout(Transaction);
-        Transaction.setLayout(TransactionLayout);
-        TransactionLayout.setHorizontalGroup(
-            TransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TransactionLayout.createSequentialGroup()
-                .addGroup(TransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(TransactionLayout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addComponent(MovieLabel)
-                        .addGap(50, 50, 50)
-                        .addComponent(MovieField, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(TransactionLayout.createSequentialGroup()
-                        .addGap(157, 157, 157)
-                        .addComponent(addMovie))
-                    .addGroup(TransactionLayout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(CartList, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(TransactionLayout.createSequentialGroup()
-                        .addGap(165, 165, 165)
-                        .addComponent(Transact)))
-                .addContainerGap(81, Short.MAX_VALUE))
-        );
-        TransactionLayout.setVerticalGroup(
-            TransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TransactionLayout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addGroup(TransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(MovieLabel)
-                    .addComponent(MovieField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(addMovie)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(CartList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(Transact)
-                .addContainerGap(46, Short.MAX_VALUE))
-        );
-
-        jPanel4.add(Transaction, "card6");
+        jPanel4.add(inventory, "card5");
 
         getContentPane().add(jPanel4, "card7");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
+    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
 
-        user = k.login(EmailField.getText());
+        user = k.login(emailField.getText());
         if(user.getID()==-1)
         {
             JOptionPane.showMessageDialog(null, "Email Not Found. Please try again.", "Email not found", JOptionPane.ERROR_MESSAGE);
@@ -289,20 +359,62 @@ public class KioskGui extends javax.swing.JFrame {
           c1 = (CardLayout)(jPanel4.getLayout());
           c1.next(jPanel4);
         }
-    }//GEN-LAST:event_LoginButtonActionPerformed
+    }//GEN-LAST:event_loginButtonActionPerformed
 
-    private void EmailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailFieldActionPerformed
+    private void emailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_EmailFieldActionPerformed
+    }//GEN-LAST:event_emailFieldActionPerformed
 
-    private void RentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RentButtonActionPerformed
-       RentButton.getName();
-    }//GEN-LAST:event_RentButtonActionPerformed
+    private void rentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentButtonActionPerformed
+       transaction.setName(rentButton.getName());
+       CardLayout c3 = (CardLayout)(jPanel4.getLayout());
+       c3.next(jPanel4);
+    }//GEN-LAST:event_rentButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void returnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnMenuActionPerformed
         CardLayout c2 = (CardLayout)(jPanel4.getLayout());
-        c2.show(jPanel4, "Menu");
-    }//GEN-LAST:event_jButton2ActionPerformed
+        c2.show(jPanel4, "menu");
+    }//GEN-LAST:event_returnMenuActionPerformed
+
+    private void addMovieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMovieActionPerformed
+        Media m = k.getCatalog().find(movieField.getText());
+        mediaCart.add(m);
+        StringBuilder s = new StringBuilder(titlesText.getText());
+        s.append(m.getTitle() + "\n");
+        titlesText.setText(s.toString());
+    }//GEN-LAST:event_addMovieActionPerformed
+
+    private void doTransactionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doTransactionActionPerformed
+        k.rentMedia(user, mediaCart);
+        mediaCart.clear();
+        JOptionPane.showMessageDialog(null, (transaction.getName() + " completed."));
+        CardLayout c4 = (CardLayout)(jPanel4.getLayout());
+        c4.previous(jPanel4);
+    }//GEN-LAST:event_doTransactionActionPerformed
+
+    private void returnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnButtonActionPerformed
+        transaction.setName(returnButton.getName());
+        CardLayout c3 = (CardLayout)(jPanel4.getLayout());
+        c3.next(jPanel4);
+    }//GEN-LAST:event_returnButtonActionPerformed
+
+    private void reserveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reserveButtonActionPerformed
+        transaction.setName(reserveButton.getName());
+        CardLayout c3 = (CardLayout)(jPanel4.getLayout());
+        c3.next(jPanel4);
+    }//GEN-LAST:event_reserveButtonActionPerformed
+
+    private void purchaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_purchaseButtonActionPerformed
+        transaction.setName(purchaseButton.getName());
+        CardLayout c3 = (CardLayout)(jPanel4.getLayout());
+        c3.next(jPanel4);
+    }//GEN-LAST:event_purchaseButtonActionPerformed
+
+    private void orderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderButtonActionPerformed
+        transaction.setName(orderButton.getName());
+        CardLayout c3 = (CardLayout)(jPanel4.getLayout());
+        c3.next(jPanel4);
+    }//GEN-LAST:event_orderButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -345,28 +457,32 @@ public class KioskGui extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane CartList;
-    private javax.swing.JButton CheckStock;
-    private javax.swing.JTextField EmailField;
-    private javax.swing.JLabel EmailLabel;
     private javax.swing.JTextArea HistoryText;
     private javax.swing.JPanel HistoryView;
-    private javax.swing.JPanel Inventory;
-    private javax.swing.JPanel Login;
-    private javax.swing.JButton LoginButton;
-    private javax.swing.JPanel Menu;
-    private javax.swing.JTextField MovieField;
-    private javax.swing.JLabel MovieLabel;
-    private javax.swing.JButton RentButton;
-    private javax.swing.JTextField TitleField;
-    private javax.swing.JLabel TitleLabel;
-    private javax.swing.JButton Transact;
-    private javax.swing.JPanel Transaction;
-    private javax.swing.JLabel WelcomeLabel;
     private javax.swing.JButton addMovie;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JScrollPane cartList;
+    private javax.swing.JButton checkStock;
+    private javax.swing.JButton doTransaction;
+    private javax.swing.JTextField emailField;
+    private javax.swing.JLabel emailLabel;
+    private javax.swing.JPanel inventory;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollHistory;
-    private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JPanel login;
+    private javax.swing.JButton loginButton;
+    private javax.swing.JPanel menu;
+    private javax.swing.JTextField movieField;
+    private javax.swing.JLabel movieLabel;
+    private javax.swing.JButton orderButton;
+    private javax.swing.JButton purchaseButton;
+    private javax.swing.JButton rentButton;
+    private javax.swing.JButton reserveButton;
+    private javax.swing.JButton returnButton;
+    private javax.swing.JButton returnMenu;
+    private javax.swing.JTextField titleField;
+    private javax.swing.JLabel titleLabel;
+    private javax.swing.JTextArea titlesText;
+    private javax.swing.JPanel transaction;
+    private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
 }

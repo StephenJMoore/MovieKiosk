@@ -219,4 +219,8 @@ class Kiosk {
             this.catalog.linkAccount(a);
         }
     }
+    Catalog getCatalog()
+    {
+        return catalog;
+    }
 }
