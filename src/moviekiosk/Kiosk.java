@@ -35,7 +35,7 @@ class Kiosk {
     void menu(Account user)
     {
         
-        System.out.println("Welcome, " + user.getFname() + " to GreenBox Kiosks!");
+        System.out.println(welcome(user));
         
         int sentinel;
         Scanner in = new Scanner(System.in);
@@ -211,7 +211,11 @@ class Kiosk {
         Purchase p = user.createPurchase(mediaCart, ++this.transactionCounter);
         this.catalog.update(p);
     }     
-    
+    String welcome(Account a)
+    {
+        return ("Welcome, " + a.getFname() + " to GreenBox Kiosks!");
+    }
+            
     void linkTransactions()
     {
         for(Account a: acctList)
