@@ -30,7 +30,7 @@ public class Reserve extends Transaction {
    StringBuilder display()
    {
        StringBuilder sb = new StringBuilder();
-       sb.append("Reserved Movies:");
+       sb.append("Reserved Movies: \n");
        sb.append(super.display());
        return sb;
    }

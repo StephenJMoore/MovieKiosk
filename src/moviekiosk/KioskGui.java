@@ -53,6 +53,7 @@ public class KioskGui extends javax.swing.JFrame {
         historyButton = new javax.swing.JButton();
         kioskWelcomeLabel = new javax.swing.JLabel();
         invButton = new javax.swing.JButton();
+        exitButton = new javax.swing.JButton();
         transaction = new javax.swing.JPanel();
         movieLabel = new javax.swing.JLabel();
         movieField = new javax.swing.JTextField();
@@ -63,7 +64,7 @@ public class KioskGui extends javax.swing.JFrame {
         returnMenu2 = new javax.swing.JButton();
         historyView = new javax.swing.JPanel();
         jScrollHistory = new javax.swing.JScrollPane();
-        HistoryText = new javax.swing.JTextArea(k.printHistory(user));
+        historyText = new javax.swing.JTextArea();
         returnMenu = new javax.swing.JButton();
         inventory = new javax.swing.JPanel();
         titleLabel = new javax.swing.JLabel();
@@ -71,6 +72,7 @@ public class KioskGui extends javax.swing.JFrame {
         titleField = new javax.swing.JTextField();
         checkStock = new javax.swing.JButton();
         returnMenu1 = new javax.swing.JButton();
+        stockField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Movie Kiosk");
@@ -112,7 +114,7 @@ public class KioskGui extends javax.swing.JFrame {
                         .addGap(53, 53, 53)
                         .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(230, Short.MAX_VALUE))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
         loginLayout.setVerticalGroup(
             loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,7 +125,7 @@ public class KioskGui extends javax.swing.JFrame {
                     .addComponent(emailLabel))
                 .addGap(18, 18, 18)
                 .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(191, Short.MAX_VALUE))
+                .addContainerGap(161, Short.MAX_VALUE))
         );
 
         jPanel4.add(login, "card2");
@@ -186,6 +188,13 @@ public class KioskGui extends javax.swing.JFrame {
             }
         });
 
+        exitButton.setText("Quit");
+        exitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout menuLayout = new javax.swing.GroupLayout(menu);
         menu.setLayout(menuLayout);
         menuLayout.setHorizontalGroup(
@@ -193,7 +202,10 @@ public class KioskGui extends javax.swing.JFrame {
             .addGroup(menuLayout.createSequentialGroup()
                 .addGap(109, 109, 109)
                 .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(invButton)
+                    .addGroup(menuLayout.createSequentialGroup()
+                        .addComponent(invButton)
+                        .addGap(35, 35, 35)
+                        .addComponent(exitButton))
                     .addGroup(menuLayout.createSequentialGroup()
                         .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(reserveButton)
@@ -205,7 +217,7 @@ public class KioskGui extends javax.swing.JFrame {
                             .addComponent(purchaseButton)
                             .addComponent(orderButton)))
                     .addComponent(kioskWelcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(115, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         menuLayout.setVerticalGroup(
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,8 +242,10 @@ public class KioskGui extends javax.swing.JFrame {
                         .addGap(14, 14, 14)
                         .addComponent(historyButton)))
                 .addGap(18, 18, 18)
-                .addComponent(invButton)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(invButton)
+                    .addComponent(exitButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.add(menu, "card3");
@@ -286,7 +300,7 @@ public class KioskGui extends javax.swing.JFrame {
                     .addGroup(transactionLayout.createSequentialGroup()
                         .addGap(49, 49, 49)
                         .addComponent(cartList, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(276, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         transactionLayout.setVerticalGroup(
             transactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -303,17 +317,19 @@ public class KioskGui extends javax.swing.JFrame {
                 .addGroup(transactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(doTransaction)
                     .addComponent(returnMenu2))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         jPanel4.add(transaction, "card6");
 
         historyView.setName("historyView"); // NOI18N
 
-        HistoryText.setEditable(false);
-        HistoryText.setColumns(20);
-        HistoryText.setRows(5);
-        jScrollHistory.setViewportView(HistoryText);
+        jScrollHistory.setInheritsPopupMenu(true);
+
+        historyText.setEditable(false);
+        historyText.setColumns(20);
+        historyText.setRows(5);
+        jScrollHistory.setViewportView(historyText);
 
         returnMenu.setText("Return");
         returnMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -333,14 +349,14 @@ public class KioskGui extends javax.swing.JFrame {
             .addGroup(historyViewLayout.createSequentialGroup()
                 .addGap(161, 161, 161)
                 .addComponent(returnMenu)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(204, Short.MAX_VALUE))
         );
         historyViewLayout.setVerticalGroup(
             historyViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(historyViewLayout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
-                .addComponent(jScrollHistory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63)
+                .addContainerGap()
+                .addComponent(jScrollHistory, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(returnMenu))
         );
 
@@ -353,6 +369,11 @@ public class KioskGui extends javax.swing.JFrame {
         invWelcomeLabel.setText("Check Inventory ");
 
         checkStock.setText("Check Stock");
+        checkStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkStockActionPerformed(evt);
+            }
+        });
 
         returnMenu1.setText("Return");
         returnMenu1.addActionListener(new java.awt.event.ActionListener() {
@@ -361,6 +382,9 @@ public class KioskGui extends javax.swing.JFrame {
             }
         });
 
+        stockField.setEditable(false);
+        stockField.setText("           ");
+
         javax.swing.GroupLayout inventoryLayout = new javax.swing.GroupLayout(inventory);
         inventory.setLayout(inventoryLayout);
         inventoryLayout.setHorizontalGroup(
@@ -368,19 +392,21 @@ public class KioskGui extends javax.swing.JFrame {
             .addGroup(inventoryLayout.createSequentialGroup()
                 .addGroup(inventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(inventoryLayout.createSequentialGroup()
-                        .addGap(101, 101, 101)
-                        .addComponent(titleLabel)
-                        .addGap(59, 59, 59)
-                        .addComponent(titleField, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(inventoryLayout.createSequentialGroup()
                         .addGap(163, 163, 163)
                         .addGroup(inventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(inventoryLayout.createSequentialGroup()
                                 .addComponent(checkStock)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(returnMenu1))
-                            .addComponent(invWelcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(160, Short.MAX_VALUE))
+                            .addComponent(invWelcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(inventoryLayout.createSequentialGroup()
+                        .addGap(101, 101, 101)
+                        .addComponent(titleLabel)
+                        .addGap(59, 59, 59)
+                        .addGroup(inventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(stockField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(titleField, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
         inventoryLayout.setVerticalGroup(
             inventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -391,11 +417,13 @@ public class KioskGui extends javax.swing.JFrame {
                 .addGroup(inventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(titleLabel)
                     .addComponent(titleField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
+                .addGap(7, 7, 7)
+                .addComponent(stockField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(inventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(checkStock)
                     .addComponent(returnMenu1))
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addContainerGap(117, Short.MAX_VALUE))
         );
 
         jPanel4.add(inventory, "card5");
@@ -444,8 +472,27 @@ public class KioskGui extends javax.swing.JFrame {
     }//GEN-LAST:event_addMovieActionPerformed
 
     private void doTransactionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doTransactionActionPerformed
-        k.rentMedia(user, mediaCart);
+        switch(transaction.getName())
+        {
+            case "Rent":
+                k.rentMedia(user,mediaCart);
+                break;
+            case "Return":
+                k.returnMedia(user, mediaCart);
+                break;
+            case "Reserve":
+                k.reserveMedia(user, mediaCart);
+                break;
+            case "Purchase":
+                k.purchaseMedia(user, mediaCart);
+                break;
+            case "Order":
+                k.purchaseMedia(user, mediaCart);
+                break;
+                
+        }
         mediaCart.clear();
+        titlesText.setText("");
         JOptionPane.showMessageDialog(null, (transaction.getName() + " completed."));
         CardLayout c4 = (CardLayout)(jPanel4.getLayout());
         c4.previous(jPanel4);
@@ -477,6 +524,7 @@ public class KioskGui extends javax.swing.JFrame {
 
     private void historyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historyButtonActionPerformed
        CardLayout c5 = (CardLayout)(jPanel4.getLayout());
+       historyText.setText(k.printHistory(user));
        c5.show(jPanel4, "card4");
     }//GEN-LAST:event_historyButtonActionPerformed
 
@@ -494,6 +542,20 @@ public class KioskGui extends javax.swing.JFrame {
         CardLayout c2 = (CardLayout)(jPanel4.getLayout());
         c2.show(jPanel4, "card3");
     }//GEN-LAST:event_returnMenu1ActionPerformed
+
+    private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
+        try {
+            k.save();
+        } catch (IOException ex) {
+            Logger.getLogger(KioskGui.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.dispose();
+    }//GEN-LAST:event_exitButtonActionPerformed
+
+    private void checkStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkStockActionPerformed
+                Media m = k.getCatalog().find(titleField.getText());
+                stockField.setText(Integer.toString(m.getInv()));
+    }//GEN-LAST:event_checkStockActionPerformed
 
     /**
      * @param args the command line arguments
@@ -536,14 +598,15 @@ public class KioskGui extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea HistoryText;
     private javax.swing.JButton addMovie;
     private javax.swing.JScrollPane cartList;
     private javax.swing.JButton checkStock;
     private javax.swing.JButton doTransaction;
     private javax.swing.JTextField emailField;
     private javax.swing.JLabel emailLabel;
+    private javax.swing.JButton exitButton;
     private javax.swing.JButton historyButton;
+    private javax.swing.JTextArea historyText;
     private javax.swing.JPanel historyView;
     private javax.swing.JButton invButton;
     private javax.swing.JLabel invWelcomeLabel;
@@ -564,6 +627,7 @@ public class KioskGui extends javax.swing.JFrame {
     private javax.swing.JButton returnMenu;
     private javax.swing.JButton returnMenu1;
     private javax.swing.JButton returnMenu2;
+    private javax.swing.JTextField stockField;
     private javax.swing.JTextField titleField;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JTextArea titlesText;

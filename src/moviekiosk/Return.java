@@ -24,7 +24,7 @@ class Return extends Transaction {
    StringBuilder display()
    {
        StringBuilder sb = new StringBuilder();
-       sb.append("Movies Returned");
+       sb.append("Movies Returned \n");
        sb.append(super.display());
        return sb;
    }

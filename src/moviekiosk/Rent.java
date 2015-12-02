@@ -23,7 +23,7 @@ class Rent extends Transaction {
    StringBuilder display()
    {
        StringBuilder sb = new StringBuilder();
-       sb.append("Movies Rented:");
+       sb.append("Movies Rented: \n");
        super.display();
        sb.append(super.display());
        return sb;

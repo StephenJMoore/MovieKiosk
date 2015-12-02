@@ -24,7 +24,7 @@ public class Purchase extends Transaction {
    StringBuilder display()
    {
        StringBuilder sb = new StringBuilder();
-       sb.append("Purchased Movies:");
+       sb.append("Purchased Movies:  \n");
        sb.append(super.display());
        return sb;
    }
