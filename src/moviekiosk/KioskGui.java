@@ -8,6 +8,7 @@ package moviekiosk;
 import java.awt.CardLayout;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -178,8 +179,6 @@ public class KioskGui extends javax.swing.JFrame {
                 historyButtonActionPerformed(evt);
             }
         });
-
-        kioskWelcomeLabel.setText(k.welcome(user));
 
         invButton.setText("Check Inventory");
         invButton.addActionListener(new java.awt.event.ActionListener() {
@@ -438,12 +437,13 @@ public class KioskGui extends javax.swing.JFrame {
         user = k.login(emailField.getText());
         if(user.getID()==-1)
         {
-            JOptionPane.showMessageDialog(null, "Email Not Found. Please try again.", "Email not found", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Email Not Found. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
         }
         else
         {
           CardLayout c1;
           c1 = (CardLayout)(jPanel4.getLayout());
+          kioskWelcomeLabel.setText(k.welcome(user));
           c1.next(jPanel4);
         }
     }//GEN-LAST:event_loginButtonActionPerformed
@@ -465,10 +465,56 @@ public class KioskGui extends javax.swing.JFrame {
 
     private void addMovieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMovieActionPerformed
         Media m = k.getCatalog().find(movieField.getText());
-        mediaCart.add(m);
-        StringBuilder s = new StringBuilder(titlesText.getText());
-        s.append(m.getTitle() + "\n");
-        titlesText.setText(s.toString());
+        if(m.getID()==-1)
+        {
+            JOptionPane.showMessageDialog(null, "Movie not found.", "Error", 
+                    JOptionPane.ERROR_MESSAGE);
+            movieField.setText("");
+        }
+        else
+        {    
+        
+            switch(transaction.getName())
+            {
+                case "Rent":
+                    if(m.getInv()<1)
+                    {
+
+                        JOptionPane.showMessageDialog(null, m.getTitle() + " is not in stock.", 
+                                "Error", JOptionPane.ERROR_MESSAGE);
+
+                    }
+                    else
+                    {
+                        mediaCart.add(m);
+                        StringBuilder s = new StringBuilder(titlesText.getText());
+                        s.append(m.getTitle() + "\n");
+                        titlesText.setText(s.toString());
+                    }
+                    break;
+                case "Reserve":
+                    if(m.getInv()>0)
+                    {
+                        JOptionPane.showMessageDialog(null, m.getTitle() + " is in stock. Feel free to rent the movie!",
+                                "Error", JOptionPane.WARNING_MESSAGE);
+
+                    }
+                    else
+                    {
+                        mediaCart.add(m);
+                        StringBuilder s = new StringBuilder(titlesText.getText());
+                        s.append(m.getTitle() + "\n");
+                        titlesText.setText(s.toString());
+                    }
+                    break;
+                default:
+                    mediaCart.add(m);
+                    StringBuilder s = new StringBuilder(titlesText.getText());
+                    s.append(m.getTitle() + "\n");
+                    titlesText.setText(s.toString());
+                    break;
+            }
+        }
     }//GEN-LAST:event_addMovieActionPerformed
 
     private void doTransactionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doTransactionActionPerformed
@@ -524,7 +570,10 @@ public class KioskGui extends javax.swing.JFrame {
 
     private void historyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historyButtonActionPerformed
        CardLayout c5 = (CardLayout)(jPanel4.getLayout());
+       
        historyText.setText(k.printHistory(user));
+       historyText.setCaretPosition(0); 
+       
        c5.show(jPanel4, "card4");
     }//GEN-LAST:event_historyButtonActionPerformed
 
@@ -536,6 +585,9 @@ public class KioskGui extends javax.swing.JFrame {
     private void returnMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnMenu2ActionPerformed
         CardLayout c2 = (CardLayout)(jPanel4.getLayout());
         c2.show(jPanel4, "card3");
+        
+        mediaCart.clear();
+        titlesText.setText("");
     }//GEN-LAST:event_returnMenu2ActionPerformed
 
     private void returnMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnMenu1ActionPerformed
@@ -553,8 +605,15 @@ public class KioskGui extends javax.swing.JFrame {
     }//GEN-LAST:event_exitButtonActionPerformed
 
     private void checkStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkStockActionPerformed
-                Media m = k.getCatalog().find(titleField.getText());
-                stockField.setText(Integer.toString(m.getInv()));
+        Media m = k.getCatalog().find(titleField.getText());
+        if(m.getID()==-1)
+           {
+                JOptionPane.showMessageDialog(null, "Movie not found.", "Error", 
+                    JOptionPane.ERROR_MESSAGE);
+                movieField.setText("");
+        }        
+        else                
+            stockField.setText(Integer.toString(m.getInv()));
     }//GEN-LAST:event_checkStockActionPerformed
 
     /**
