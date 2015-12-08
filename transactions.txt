@@ -13,3 +13,67 @@ Return
 a@b.com
 1
 Singing in the Rain
+Rent
+7
+a@b.com
+1
+Singing in the Rain
+Return
+8
+a@b.com
+0
+Return
+9
+a@b.com
+2
+Singing in the Rain
+Singing in the Rain
+Rent
+10
+a@b.com
+1
+Singing in the Rain
+Rent
+11
+a@b.com
+3
+Singing in the Rain
+Singing in the Rain
+Singing in the Rain
+Reserve
+12
+a@b.com
+1
+Singing in the Rain
+Return
+13
+a@b.com
+1
+Singing in the Rain
+Rent
+14
+a@b.com
+3
+Singing in the Rain
+Singing in the Rain
+Singing in the Rain
+Reserve
+15
+a@b.com
+1
+Singing in the Rain
+Return
+16
+a@b.com
+1
+Singing in the Rain
+Rent
+17
+a@b.com
+1
+Singing in the Rain
+Return
+18
+a@b.com
+1
+Singing in the Rain

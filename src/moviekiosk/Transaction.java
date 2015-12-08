@@ -48,13 +48,16 @@ abstract class Transaction {
     {
         this.mediaList.add(m);
     }
-    void display()
+    StringBuilder display()
     {
-      for(Media m: this.mediaList)
+        StringBuilder disp = new StringBuilder();
+       for(Media m: this.mediaList)
        {
-           System.out.println(m.getTitle());
+           disp.append(m.getTitle() + "\n");
        }
-      System.out.println();
+      disp.append('\n');
+      
+      return disp;
     } 
 
     ArrayList<Media> getMediaList()

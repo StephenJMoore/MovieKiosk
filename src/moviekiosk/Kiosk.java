@@ -35,7 +35,7 @@ class Kiosk {
     void menu(Account user)
     {
         
-        System.out.println("Welcome, " + user.getFname() + " to GreenBox Kiosks!");
+        System.out.println(welcome(user));
         
         int sentinel;
         Scanner in = new Scanner(System.in);
@@ -141,9 +141,18 @@ class Kiosk {
     {
         for(Transaction t: a.transactions)
         {
-            t.display();
+            System.out.println(t.display());
         }
     }
+    String printHistory(Account a)
+    {
+        StringBuilder sb = new StringBuilder();
+        for(Transaction t: a.transactions)
+            sb.append(t.display());
+        String s = new String(sb);
+        return s;
+    }
+    
    Account find(String search)
 {
 
@@ -202,12 +211,20 @@ class Kiosk {
         Purchase p = user.createPurchase(mediaCart, ++this.transactionCounter);
         this.catalog.update(p);
     }     
-    
+    String welcome(Account a)
+    {
+        return ("Welcome, " + a.getFname() + " to GreenBox Kiosks!");
+    }
+            
     void linkTransactions()
     {
         for(Account a: acctList)
         {
             this.catalog.linkAccount(a);
         }
+    }
+    Catalog getCatalog()
+    {
+        return catalog;
     }
 }
