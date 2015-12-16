@@ -10,6 +10,7 @@ class Kiosk {
     private ArrayList<Account> acctList = new ArrayList<>();
     private Catalog catalog = new Catalog();
     private int transactionCounter = 0;
+    
     void load() throws IOException 
     {
       FileWR f = new FileWR();
@@ -194,12 +195,22 @@ class Kiosk {
     void returnMedia(Account user, ArrayList<Media> mediaCart)
     {
         Return r = user.createReturn(mediaCart, ++this.transactionCounter);
+        for(Media m:mediaCart)
+        {
+            if(catalog.reserve(m))
+            {
+                //move m to method of holding
+                
+            }
+        }
         this.catalog.update(r);
+        
     }
     void reserveMedia(Account user, ArrayList<Media> mediaCart)
     {
         Reserve r = user.createReserve(mediaCart, ++this.transactionCounter);
         this.catalog.update(r);
+        
     }
     void orderMedia(Account user, ArrayList<Media> mediaCart)
     {

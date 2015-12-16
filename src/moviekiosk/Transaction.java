@@ -5,9 +5,6 @@
  */
 
 package moviekiosk;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 //@author Stephen
 abstract class Transaction {
@@ -26,6 +23,13 @@ abstract class Transaction {
         for(Media m: list)
             this.mediaList.add(m);
         this.id = counter;
+    }
+    Transaction(Transaction t)
+    {
+        this.acct = t.acct;
+        this.id = t.id;
+        for(Media m: t.mediaList)
+            this.mediaList.add(m);
     }
     
         int getID()

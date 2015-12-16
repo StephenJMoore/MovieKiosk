@@ -74,6 +74,34 @@ public class Catalog {
         }
         return f;
     }
+    boolean reserve(Media m)  //checks for unfufilled reservations and satisfies if found.
+    {
+        boolean isReserved = false;
+
+        for(Transaction t:transactionHistory)
+        {
+            if(t.getClass().getSimpleName().equals("Reserve"))
+            {
+                System.out.println("Stuff");
+                for(Media cart:t.getMediaList())
+                {
+                    if(cart.getTitle().equals(m.getTitle()))
+                    {
+                        System.out.println("reserve");
+                        Reserve r = (Reserve) t;
+                        isReserved = true;
+                        r.notifyInStock(cart);
+                        t.mediaList.remove(cart);  // removes and notifies only what is in stock.
+                        if(t.mediaList.isEmpty())
+                            transactionHistory.remove(t);
+                        return isReserved;
+                    }
+                }
+            }
+        }
+        return isReserved;
+    }
+            
     void addMedia(Media m)
     {
         this.mediaLibrary.add(m);
