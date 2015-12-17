@@ -86,10 +86,10 @@ public class Catalog {
                 {
                     if(cart.getTitle().equals(m.getTitle()))
                     {
-                        Reserve r = (Reserve) t;
+                        reservation = (Reserve) t;
                         reservation.addMedia(cart);
                         reservation.setAcct(t.getAcct());
-                        r.notifyInStock(cart);
+                        reservation.notifyInStock(cart);
                         t.mediaList.remove(cart);  // removes and notifies only what is in stock.
                         if(t.mediaList.isEmpty())
                             transactionHistory.remove(t);
@@ -99,6 +99,14 @@ public class Catalog {
             }
         }
         return reservation;
+    }
+    
+    void linkMedia(Account a)
+    {
+        for(Media m: a.getReservations())
+        {
+            m = this.find(m.getTitle());
+        }
     }
             
     void addMedia(Media m)
