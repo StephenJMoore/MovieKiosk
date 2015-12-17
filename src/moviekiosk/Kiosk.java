@@ -140,7 +140,7 @@ class Kiosk {
     }
     void viewHistory(Account a)
     {
-        for(Transaction t: a.transactions)
+        for(Transaction t: a.getTransactions())
         {
             System.out.println(t.display());
         }
@@ -148,7 +148,7 @@ class Kiosk {
     String printHistory(Account a)
     {
         StringBuilder sb = new StringBuilder();
-        for(Transaction t: a.transactions)
+        for(Transaction t: a.getTransactions())
             sb.append(t.display());
         String s = new String(sb);
         return s;
@@ -197,13 +197,19 @@ class Kiosk {
         Return r = user.createReturn(mediaCart, ++this.transactionCounter);
         for(Media m:mediaCart)
         {
-            if(catalog.reserve(m))
+            Reserve reservation = catalog.reserve(m);
+            if(reservation==null)
             {
-                //move m to method of holding
                 
+                this.catalog.update(r);
+            }
+            else
+            {
+                reservation.getAcct().addReservation(m);
             }
         }
-        this.catalog.update(r);
+         
+        
         
     }
     void reserveMedia(Account user, ArrayList<Media> mediaCart)
@@ -222,6 +228,12 @@ class Kiosk {
         Purchase p = user.createPurchase(mediaCart, ++this.transactionCounter);
         this.catalog.update(p);
     }     
+    
+    void checkoutReservations(Account user)
+    {
+        user.createRent(user.getReservations(), ++transactionCounter);
+        user.emptyReservations();
+    }
     String welcome(Account a)
     {
         return ("Welcome, " + a.getFname() + " to GreenBox Kiosks!");
