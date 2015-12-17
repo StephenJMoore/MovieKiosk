@@ -198,11 +198,6 @@ public class KioskGui extends javax.swing.JFrame {
                 collectReservesButtonActionPerformed(evt);
             }
         });
-        collectReservesButton.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                collectReservesButtonPropertyChange(evt);
-            }
-        });
 
         javax.swing.GroupLayout menuLayout = new javax.swing.GroupLayout(menu);
         menu.setLayout(menuLayout);
@@ -462,6 +457,9 @@ public class KioskGui extends javax.swing.JFrame {
           CardLayout c1;
           c1 = (CardLayout)(jPanel4.getLayout());
           kioskWelcomeLabel.setText(k.welcome(user));
+          collectReservesButton.setEnabled(!user.getReservations().isEmpty());
+ 
+                
           c1.next(jPanel4);
         }
     }//GEN-LAST:event_loginButtonActionPerformed
@@ -647,11 +645,6 @@ public class KioskGui extends javax.swing.JFrame {
                     "Rental Successful", JOptionPane.PLAIN_MESSAGE);
         }
     }//GEN-LAST:event_collectReservesButtonActionPerformed
-
-    private void collectReservesButtonPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_collectReservesButtonPropertyChange
-        if(user.getReservations().isEmpty())
-            collectReservesButton.setVisible(false);
-    }//GEN-LAST:event_collectReservesButtonPropertyChange
 
     /**
      * @param args the command line arguments

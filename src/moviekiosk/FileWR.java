@@ -52,6 +52,14 @@ import java.util.ArrayList;
                tString=in.nextLine();
                tInt = Integer.parseInt(tString);
                temp.setZip(tInt);
+               tString=in.nextLine();
+               tInt = Integer.parseInt(tString);
+               for(int i = 0; i < tInt; ++i)
+               {
+                   tString = in.nextLine();
+                   Media m = new Media(tString);
+                   temp.addReservation(m);
+               }
                aList.add(temp);
                if(in.hasNext("\\n"))
                    in.nextLine();
@@ -263,17 +271,15 @@ import java.util.ArrayList;
             tempInt = a.getZip();
             out.write(tempInt.toString());
             out.newLine();
-//            tempInt = a.getReservations().size();
-//            out.write(tempInt.toString());
-//            out.newLine();
-//            for(Media m: a.getReservations())
-//            {
-//                out.write(m.getTitle());
-//                out.newLine();
-//            }
+            tempInt = a.getReservations().size();
+            out.write(tempInt.toString());
             out.newLine();
+            for(Media m: a.getReservations())
+            {
+                out.write(m.getTitle());
+                out.newLine();
+            }
            }
-           out.close();
        }
       
     catch (IOException ex)

@@ -14,11 +14,11 @@ class Kiosk {
     void load() throws IOException 
     {
       FileWR f = new FileWR();
-      f.loadAccount(this.acctList);
       f.loadCatalog(this.catalog);
+      f.loadAccount(this.acctList);
       transactionCounter = f.loadTransactions(this.catalog.getHistory());
       this.linkTransactions();
-        
+      this.linkReservations();  
     }
     void save() throws IOException
     {
@@ -249,5 +249,15 @@ class Kiosk {
     Catalog getCatalog()
     {
         return catalog;
+    }
+    
+    void linkReservations()
+    {
+        for(Account a:acctList)
+        {
+            if(!a.getTransactions().isEmpty())
+                catalog.linkMedia(a);
+        }
+        
     }
 }
