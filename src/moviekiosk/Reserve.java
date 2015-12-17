@@ -21,9 +21,17 @@ public class Reserve extends Transaction {
         super(list, a, counter);
     } 
     
-    void notifyInStock()
+    Reserve(Transaction t)
     {
-    
+        super(t);
+    }
+    void notifyInStock(Media m)
+    {
+        Mailer mail = new Mailer();
+        String body = "The movie " + m.getTitle() + " is in stock.";
+        
+        mail.mail(acct.getEmail(), "Reservation update", body);
+        
     }
     
     @Override

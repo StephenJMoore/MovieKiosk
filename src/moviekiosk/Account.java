@@ -11,7 +11,8 @@ class Account {
                 phPrefix, //  part of phone # second set
                 phSuffix, // final segment
                 creditCardNum;
-    ArrayList<Transaction>  transactions = new ArrayList<>();
+    private ArrayList<Transaction>  transactions = new ArrayList<>();
+    private ArrayList<Media> reservations = new ArrayList<>();
     private String fName,
                    lName,
                    streetAddress, //number and name
@@ -156,6 +157,22 @@ void setCardExp(String e)
     {
         this.transactions.add(t); 
         
+    }
+    ArrayList<Transaction> getTransactions()
+    {
+        return this.transactions;
+    }
+    void addReservation(Media m)
+    {
+        this.reservations.add(m);
+    }
+    ArrayList<Media> getReservations()
+    {
+        return this.reservations;
+    }
+    void emptyReservations()
+    {
+        this.reservations.clear();
     }
     Rent createRent(ArrayList<Media> m, int c)
     {

@@ -263,6 +263,15 @@ import java.util.ArrayList;
             tempInt = a.getZip();
             out.write(tempInt.toString());
             out.newLine();
+//            tempInt = a.getReservations().size();
+//            out.write(tempInt.toString());
+//            out.newLine();
+//            for(Media m: a.getReservations())
+//            {
+//                out.write(m.getTitle());
+//                out.newLine();
+//            }
+            out.newLine();
            }
            out.close();
        }

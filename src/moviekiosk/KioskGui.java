@@ -54,6 +54,7 @@ public class KioskGui extends javax.swing.JFrame {
         kioskWelcomeLabel = new javax.swing.JLabel();
         invButton = new javax.swing.JButton();
         exitButton = new javax.swing.JButton();
+        collectReservesButton = new javax.swing.JButton();
         transaction = new javax.swing.JPanel();
         movieLabel = new javax.swing.JLabel();
         movieField = new javax.swing.JTextField();
@@ -191,6 +192,18 @@ public class KioskGui extends javax.swing.JFrame {
             }
         });
 
+        collectReservesButton.setText("Collect Reserves");
+        collectReservesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                collectReservesButtonActionPerformed(evt);
+            }
+        });
+        collectReservesButton.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                collectReservesButtonPropertyChange(evt);
+            }
+        });
+
         javax.swing.GroupLayout menuLayout = new javax.swing.GroupLayout(menu);
         menu.setLayout(menuLayout);
         menuLayout.setHorizontalGroup(
@@ -207,12 +220,19 @@ public class KioskGui extends javax.swing.JFrame {
                             .addComponent(rentButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(reserveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(returnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26)
-                        .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(historyButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(exitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(purchaseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(orderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(menuLayout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(historyButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(purchaseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(orderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(menuLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(collectReservesButton))))
+                    .addGroup(menuLayout.createSequentialGroup()
+                        .addGap(168, 168, 168)
+                        .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
         menuLayout.setVerticalGroup(
@@ -234,9 +254,11 @@ public class KioskGui extends javax.swing.JFrame {
                     .addComponent(returnButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(exitButton)
-                    .addComponent(invButton))
-                .addContainerGap(40, Short.MAX_VALUE))
+                    .addComponent(invButton)
+                    .addComponent(collectReservesButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(exitButton)
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         jPanel4.add(menu, "card3");
@@ -612,6 +634,25 @@ public class KioskGui extends javax.swing.JFrame {
             stockField.setText(Integer.toString(m.getInv()));
     }//GEN-LAST:event_checkStockActionPerformed
 
+    private void collectReservesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_collectReservesButtonActionPerformed
+        if(user.getReservations().isEmpty())
+        {
+            JOptionPane.showMessageDialog(null, "You have no availble reserves to pick "
+                    + "up at this time", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+            k.checkoutReservations(user);
+            JOptionPane.showMessageDialog(null, "Enjoy your movies!", 
+                    "Rental Successful", JOptionPane.PLAIN_MESSAGE);
+        }
+    }//GEN-LAST:event_collectReservesButtonActionPerformed
+
+    private void collectReservesButtonPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_collectReservesButtonPropertyChange
+        if(user.getReservations().isEmpty())
+            collectReservesButton.setVisible(false);
+    }//GEN-LAST:event_collectReservesButtonPropertyChange
+
     /**
      * @param args the command line arguments
      */
@@ -656,6 +697,7 @@ public class KioskGui extends javax.swing.JFrame {
     private javax.swing.JButton addMovie;
     private javax.swing.JScrollPane cartList;
     private javax.swing.JButton checkStock;
+    private javax.swing.JButton collectReservesButton;
     private javax.swing.JButton doTransaction;
     private javax.swing.JTextField emailField;
     private javax.swing.JLabel emailLabel;

@@ -10,6 +10,7 @@ class Kiosk {
     private ArrayList<Account> acctList = new ArrayList<>();
     private Catalog catalog = new Catalog();
     private int transactionCounter = 0;
+    
     void load() throws IOException 
     {
       FileWR f = new FileWR();
@@ -139,7 +140,7 @@ class Kiosk {
     }
     void viewHistory(Account a)
     {
-        for(Transaction t: a.transactions)
+        for(Transaction t: a.getTransactions())
         {
             System.out.println(t.display());
         }
@@ -147,7 +148,7 @@ class Kiosk {
     String printHistory(Account a)
     {
         StringBuilder sb = new StringBuilder();
-        for(Transaction t: a.transactions)
+        for(Transaction t: a.getTransactions())
             sb.append(t.display());
         String s = new String(sb);
         return s;
@@ -194,12 +195,28 @@ class Kiosk {
     void returnMedia(Account user, ArrayList<Media> mediaCart)
     {
         Return r = user.createReturn(mediaCart, ++this.transactionCounter);
-        this.catalog.update(r);
+        for(Media m:mediaCart)
+        {
+            Reserve reservation = catalog.reserve(m);
+            if(reservation==null)
+            {
+                
+                this.catalog.update(r);
+            }
+            else
+            {
+                reservation.getAcct().addReservation(m);
+            }
+        }
+         
+        
+        
     }
     void reserveMedia(Account user, ArrayList<Media> mediaCart)
     {
         Reserve r = user.createReserve(mediaCart, ++this.transactionCounter);
         this.catalog.update(r);
+        
     }
     void orderMedia(Account user, ArrayList<Media> mediaCart)
     {
@@ -211,6 +228,12 @@ class Kiosk {
         Purchase p = user.createPurchase(mediaCart, ++this.transactionCounter);
         this.catalog.update(p);
     }     
+    
+    void checkoutReservations(Account user)
+    {
+        user.createRent(user.getReservations(), ++transactionCounter);
+        user.emptyReservations();
+    }
     String welcome(Account a)
     {
         return ("Welcome, " + a.getFname() + " to GreenBox Kiosks!");
