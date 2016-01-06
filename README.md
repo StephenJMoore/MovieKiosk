@@ -33,8 +33,20 @@ File descriptions
 13: KioskGui.java: creates the gui interface.  Contains menu jPanels for login, transactions,
     history, inventory, and the main menu.
 
-13: accounts.txt: data file for user accounts
+14: Mailer.java: handles the email notification for fufuiled reservations.
 
-14: catalogLib.txt: data file for the Media objects 
+15: accounts.txt: data file for user accounts
 
-15: transactions.txt: data file for recording transactions and their types 
+16: catalogLib.txt: data file for the Media objects 
+
+17: transactions.txt: data file for recording transactions and their types 
+
+Versions:
+
+1.0: Console application
+
+2.0 GUI added.
+
+2.3 Mailing function added.
+
+2.6 Media holds enabled.
